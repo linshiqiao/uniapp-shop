@@ -1,0 +1,23 @@
+{
+  "name": "uni-shop-2",
+  "version": "1.0.0",
+  "description": "uniapp-shop",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linshiqiao/uniapp-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linshiqiao/uniapp-shop/issues"
+  },
+  "homepage": "https://github.com/linshiqiao/uniapp-shop#readme",
+  "dependencies": {
+    "@escook/request-miniprogram": "^0.2.1"
+  }
+}
