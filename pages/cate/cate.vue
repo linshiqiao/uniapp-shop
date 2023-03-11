@@ -1,5 +1,8 @@
 <template>
   <view>
+    <!-- 使用自定义搜索组件 -->
+    <!-- <my-search :bgcolor="'pink'" :radius="3"></my-search> -->
+    <my-search @click="gotoSearch"></my-search>
     <view class="scroll-view-container">
       <!-- 左侧滑动区域 -->
       <scroll-view scroll-y="true" style="height: 300rpx;" class="left-scroll-view" :style="{height: wh + 'px'}">
@@ -12,7 +15,7 @@
       </scroll-view>
 
       <!-- 右侧滑动区域 -->
-      <scroll-view scroll-y="true" style="height: 300rpx;" :style="{height: wh + 'px'}" :scroll-top="scrollTop">
+      <scroll-view scroll-y="true" :style="{height: wh + 'px'}" :scroll-top="scrollTop">
         <view v-for="(item2,i3) in cateLevel2" :key="item2.cat_id">
           <!-- 二级分类的标题 -->
           <view class="cate-level2-title">
@@ -20,7 +23,8 @@
           </view>
           <!-- 当前二级分类下的三级分类列表 -->
           <view class="cate-level3-list">
-            <view class="cate-level3-item" v-for="(item3, i3) in item2.children" :key="item3.cat_id" @click="gotoGoodsList(item3)">
+            <view class="cate-level3-item" v-for="(item3, i3) in item2.children" :key="item3.cat_id"
+              @click="gotoGoodsList(item3)">
               <!-- 三级分类的图片 -->
               <image :src="item3.cat_icon"></image>
               <!-- 三级分类的文本 -->
@@ -52,7 +56,7 @@
     onLoad() {
       const sysInfo = uni.getSystemInfoSync()
       // console.log(sysInfo)
-      this.$data.wh = sysInfo.windowHeight
+      this.$data.wh = sysInfo.windowHeight - 50
       this.getCateList()
     },
     methods: {
@@ -67,15 +71,21 @@
         //为二级分类赋值
         this.cateLevel2 = res.message[0].children
       },
-      activeChanged(index){
+      activeChanged(index) {
         this.$data.active = index
         this.cateLevel2 = this.cateList[index].children
         this.scrollTop = this.scrollTop === 0 ? 1 : 0
       },
-        // 跳转到商品列表页面
-      gotoGoodsList(item){
+      // 跳转到商品列表页面
+      gotoGoodsList(item) {
         uni.navigateTo({
           url: '/subpkg/goods_list/goods_list?cid=' + item.cat_id
+        })
+      },
+
+      gotoSearch() {
+        uni.navigateTo({
+          url: '/subpkg/search/search'
         })
       }
     }
@@ -114,27 +124,32 @@
       }
     }
   }
-  .cate-level2-title{
+
+  .cate-level2-title {
     font-size: 12px;
     font-weight: bold;
     padding: 15px 0;
     text-align: center;
   }
-  .cate-level3-list{
+
+  .cate-level3-list {
     display: flex;
     flex-wrap: wrap;
-    .cate-level3-item{
+
+    .cate-level3-item {
       width: 33.33%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       margin-bottom: 10px;
-      image{
+
+      image {
         width: 60px;
         height: 60px;
       }
-      text{
+
+      text {
         font-size: 12px;
       }
     }

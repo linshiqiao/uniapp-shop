@@ -1,5 +1,9 @@
 <template>
   <view>
+    <!-- 搜索组件 -->
+    <view class="search-box">
+      <my-search @click="gotoSearch"></my-search>
+    </view>
     <!-- 轮播图区域 -->
     <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
       <swiper-item v-for="(item, index) in swiperList" :key="item['goods_id']">
@@ -46,7 +50,7 @@
         //这是分类导航的数据
         navList: [],
         //楼层的数据
-        floorList: []
+        floorList: [],
       };
     },
     onLoad() {
@@ -98,6 +102,11 @@
         } else {
           return uni.$showMsg()
         }
+      },
+      gotoSearch(){
+        uni.navigateTo({
+          url:'/subpkg/search/search'
+        })
       }
     }
   }
@@ -137,5 +146,12 @@
   .floor-img-box{
     display: flex;
     padding: 10rpx;
+  }
+  .search-box{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    // position: fixed;
+    // width: 100%;
   }
 </style>
